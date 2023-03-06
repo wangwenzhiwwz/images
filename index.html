@@ -5,57 +5,5 @@
   </head>
   <body>
     <h1>上传图片到GitHub仓库</h1>
-    <form id="upload-form">
-      <label for="image-file">选择要上传的图片：</label>
-      <input type="file" id="image-file" name="image-file" accept="image/*" required><br>
-      <label for="image-description">输入图像描述：</label>
-      <input type="text" id="image-description" name="image-description" required><br>
-      <input type="submit" value="上传">
-    </form>
-    <div id="link"></div>
-
-    <script>
-      const form = document.getElementById('upload-form');
-      form.addEventListener('submit', function(event) {
-        event.preventDefault(); // 防止表单提交
-
-        const fileInput = document.getElementById('image-file');
-        const descriptionInput = document.getElementById('image-description');
-
-        // 获取选择的文件和描述
-        const file = fileInput.files[0];
-        const description = descriptionInput.value;
-
-        // 创建一个FormData对象，将文件和描述添加到其中
-        const formData = new FormData();
-        formData.append('image', file);
-        formData.append('description', description);
-
-        // 使用fetch API发送POST请求，将FormData对象上传到GitHub仓库
-        fetch('https://api.github.com/repos/wangwenzhiwwz/images/contents/images/' + file.name, {
-          method: 'POST',
-          headers: {
-            'Authorization': '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'
-          },
-          body: JSON.stringify({
-            message: 'Add ' + file.name,
-            content: btoa(formData),
-            branch: 'main'
-          })
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log('上传成功：', data);
-          const link = document.getElementById('link');
-          const imageURL = data.content.download_url;
-          link.innerHTML = '<a href="' + imageURL + '">' + imageURL + '</a>';
-          alert('上传成功！\n' + imageURL);
-        })
-        .catch(error => {
-          console.error('上传失败：', error);
-          alert('上传失败，请重试。');
-        });
-      });
-    </script>
   </body>
 </html>
