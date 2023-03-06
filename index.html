@@ -1,21 +1,135 @@
+<!DOCTYPE html>
 <html>
 <head>
-	<title>图片地址转换</title>
+	<title>地址转换</title>
+	<link rel="icon" href="https://wangwenzhi.eu.org/blog/images/favicon.ico">
 	<meta charset="UTF-8">
+	<style>
+		body {
+			background-color: #F2F2F7;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+			color: #333333;
+			margin: 0;
+			padding: 0;
+		}
+		h1 {
+			margin: 0;
+			padding: 20px;
+			font-size: 30px;
+			font-weight: bold;
+			text-align: center;
+			color: #007AFF;
+			border-bottom: 1px solid #D1D1D6;
+			background-color: #F2F2F7;
+		}
+		.container {
+			margin: 20px auto;
+			padding: 20px;
+			max-width: 80%;
+			background-color: #FFFFFF;
+			border-radius: 10px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}
+		label {
+			display: block;
+			margin-bottom: 10px;
+			font-size: 17px;
+			font-weight: bold;
+			color: #333333;
+		}
+		input[type=text] {
+			display: block;
+			margin-bottom: 20px;
+			width: 90%;
+			padding: 10px 15px;
+			font-size: 17px;
+			line-height: 22px;
+			color: #333333;
+			background-color: #F2F2F7;
+			border: 1px solid #D1D1D6;
+			border-radius: 5px;
+			box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+		}
+		button {
+			display: block;
+			margin: 20px 0;
+			padding: 10px 20px;
+			font-size: 17px;
+			font-weight: bold;
+			line-height: 22px;
+			color: #FFFFFF;
+			background-color: #007AFF;
+			border: none;
+			border-radius: 5px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			cursor: pointer;
+		}
+		button:hover {
+			background-color: #0066CC;
+		}
+		.result {
+			margin-top: 20px;
+		}
+		.result label {
+			display: inline-block;
+			margin-right: 10px;
+			font-size: 17px;
+			font-weight: bold;
+			color: #333333;
+		}
+		.result input[type=text] {
+			display: inline-block;
+			width: 90%;
+			padding: 10px 15px;
+			font-size: 17px;
+			line-height: 22px;
+			color: #333333;
+			background-color: #F2F2F7;
+			border: 1px solid #D1D1D6;
+			border-radius: 5px;
+			box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+	}
+</style>
+
 </head>
 <body>
-	<label>输入 GitHub 图片地址：</label>
-	<input type="text" id="githubUrl"><br><br>
-	<button onclick="convert()">转换</button><br><br>
-	<label>转换后的地址：</label>
-	<input type="text" id="convertedUrl" readonly>
-	
+	<h1>图片地址转换</h1>
+	<div class="container">
+		<label for="url">请输入图片地址:</label>
+		<input type="text" id="url" placeholder="例如：https://raw.githubusercontent.com/wangwenzhiwwz/images/main/images/W.PNG" autofocus>
+		<button id="convert-btn">转换</button>
+		<div class="result">
+			<label for="converted-url">转换后的地址:</label>
+			<input type="text" id="converted-url" readonly>
+		</div>
+	</div>
 	<script>
-		function convert() {
-			var githubUrl = document.getElementById("githubUrl").value;
-			var convertedUrl = githubUrl.replace("https://raw.githubusercontent.com/wangwenzhiwwz/images/main/", "https://wangwenzhi.eu.org/images/");
-			document.getElementById("convertedUrl").value = convertedUrl;
+		const convertBtn = document.getElementById("convert-btn");
+		const urlInput = document.getElementById("url");
+		const convertedUrlInput = document.getElementById("converted-url");
+
+		convertBtn.addEventListener("click", () => {
+		let url = urlInput.value.trim();
+		let convertedUrl = "";
+		if (url.startsWith("https://raw.githubusercontent.com/wangwenzhiwwz/images/main/images/")) {
+			convertedUrl = url.replace("https://raw.githubusercontent.com/wangwenzhiwwz/images/main/images/", "https://wangwenzhi.eu.org/images/images/");
+		} else if (url.startsWith("https://raw.githubusercontent.com/wangwenzhiwwz/images/main/")) {
+			convertedUrl = url.replace("https://raw.githubusercontent.com/wangwenzhiwwz/images/main/", "https://wangwenzhi.eu.org/images/");
+		} else if (url.startsWith("https://raw.githubusercontent.com/wangwenzhiwwz/images/main/img/")) {
+			convertedUrl = url.replace("https://raw.githubusercontent.com/wangwenzhiwwz/images/main/img/", "https://wangwenzhi.eu.org/images/img/");
+		} else {
+			alert("无法转换该地址，请输入正确的图片地址。");
+			return;
 		}
-	</script>
+		convertedUrlInput.value = convertedUrl;
+	});
+</script>
+
 </body>
 </html>
