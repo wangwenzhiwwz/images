@@ -1,9 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>上传图片到GitHub仓库</title>
-  </head>
-  <body>
-    <h1>上传图片到GitHub仓库</h1>
-  </body>
+<head>
+	<title>图片地址转换</title>
+	<meta charset="UTF-8">
+</head>
+<body>
+	<label>输入 GitHub 图片地址：</label>
+	<input type="text" id="githubUrl"><br><br>
+	<button onclick="convert()">转换</button><br><br>
+	<label>转换后的地址：</label>
+	<input type="text" id="convertedUrl" readonly>
+	
+	<script>
+		function convert() {
+			var githubUrl = document.getElementById("githubUrl").value;
+			var convertedUrl = githubUrl.replace("https://raw.githubusercontent.com/wangwenzhiwwz/images/main/images/", "https://wangwenzhi.eu.org/images/images/");
+			document.getElementById("convertedUrl").value = convertedUrl;
+		}
+	</script>
+</body>
 </html>
