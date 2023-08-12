@@ -1,168 +1,135 @@
 <!DOCTYPE html>
-
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>File</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css"/>
-      <link rel="icon" href="https://wangwenzhi.eu.org/blog/images/favicon.ico">
-  </head>
+<head>
+	<title>地址转换</title>
+	<link rel="icon" href="https://wangwenzhi.eu.org/images/favicon.ico">
+	<meta charset="UTF-8">
+	<style>
+		body {
+			background-color: #F2F2F7;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+			color: #333333;
+			margin: 0;
+			padding: 0;
+		}
+		h1 {
+			margin: 0;
+			padding: 20px;
+			font-size: 30px;
+			font-weight: bold;
+			text-align: center;
+			color: #007AFF;
+			border-bottom: 1px solid #D1D1D6;
+			background-color: #F2F2F7;
+		}
+		.container {
+			margin: 20px auto;
+			padding: 20px;
+			max-width: 80%;
+			background-color: #FFFFFF;
+			border-radius: 10px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}
+		label {
+			display: block;
+			margin-bottom: 10px;
+			font-size: 17px;
+			font-weight: bold;
+			color: #333333;
+		}
+		input[type=text] {
+			display: block;
+			margin-bottom: 20px;
+			width: 90%;
+			padding: 10px 15px;
+			font-size: 17px;
+			line-height: 22px;
+			color: #333333;
+			background-color: #F2F2F7;
+			border: 1px solid #D1D1D6;
+			border-radius: 5px;
+			box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+		}
+		button {
+			display: block;
+			margin: 20px 0;
+			padding: 10px 20px;
+			font-size: 17px;
+			font-weight: bold;
+			line-height: 22px;
+			color: #FFFFFF;
+			background-color: #007AFF;
+			border: none;
+			border-radius: 5px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			cursor: pointer;
+		}
+		button:hover {
+			background-color: #0066CC;
+		}
+		.result {
+			margin-top: 20px;
+		}
+		.result label {
+			display: inline-block;
+			margin-right: 10px;
+			font-size: 17px;
+			font-weight: bold;
+			color: #333333;
+		}
+		.result input[type=text] {
+			display: inline-block;
+			width: 90%;
+			padding: 10px 15px;
+			font-size: 17px;
+			line-height: 22px;
+			color: #333333;
+			background-color: #F2F2F7;
+			border: 1px solid #D1D1D6;
+			border-radius: 5px;
+			box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+	}
+</style>
 
+</head>
+<body>
+	<h1>图片地址转换</h1>
+	<div class="container">
+		<label for="url">请输入图片地址:</label>
+		<input type="text" id="url" placeholder="例如：https://raw.githubusercontent.com/wangwenzhiwwz/images/main/images/W.PNG" autofocus>
+		<button id="convert-btn">转换</button>
+		<div class="result">
+			<label for="converted-url">转换后的地址:</label>
+			<input type="text" id="converted-url" readonly>
+		</div>
+	</div>
+	<script>
+		const convertBtn = document.getElementById("convert-btn");
+		const urlInput = document.getElementById("url");
+		const convertedUrlInput = document.getElementById("converted-url");
 
-  <body class="bg-gray-100 font-sans leading-normal tracking-normal">
-    <header class="bg-white">
-      <div class="container mx-auto flex justify-between py-4">
-        <h1 class="text-xl font-bold text-gray-800">File</h1>
-        <p class="text-gray-600">存放文件</p>
-      </div>
-    </header>
+		convertBtn.addEventListener("click", () => {
+		let url = urlInput.value.trim();
+		let convertedUrl = "";
+		if (url.startsWith("https://raw.githubusercontent.com/wangwenzhiwwz/images/main/images/")) {
+			convertedUrl = url.replace("https://raw.githubusercontent.com/wangwenzhiwwz/images/main/images/", "https://wangwenzhi.eu.org/images/images/");
+		} else if (url.startsWith("https://raw.githubusercontent.com/wangwenzhiwwz/images/main/")) {
+			convertedUrl = url.replace("https://raw.githubusercontent.com/wangwenzhiwwz/images/main/", "https://wangwenzhi.eu.org/images/");
+		} else if (url.startsWith("https://raw.githubusercontent.com/wangwenzhiwwz/images/main/img/")) {
+			convertedUrl = url.replace("https://raw.githubusercontent.com/wangwenzhiwwz/images/main/img/", "https://wangwenzhi.eu.org/images/img/");
+		} else {
+			alert("无法转换该地址，请输入正确的图片地址。");
+			return;
+		}
+		convertedUrlInput.value = convertedUrl;
+	});
+</script>
 
-
-<main class="container mx-auto my-10">
-  <div class="flex flex-wrap -mx-4">
-    <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
-      <div class="bg-white shadow-md rounded-lg p-4 h-full hover:shadow-lg">
-        <h2 class="mb-2 text-gray-800 font-semibold">V2rayNG</h2>
-        <p class="text-sm text-gray-600 mb-2">
-          V2Rayng支持多个代理协议的Android代理软件
-        </p>
-        <a
-          href="https://github.com/2dust/v2rayNG/releases"
-          ><button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-          >
-            下载
-          </button></a
-        >
-      </div>
-    </div>
-
-    <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
-      <div class="bg-white shadow-md rounded-lg p-4 h-full hover:shadow-lg">
-        <h2 class="mb-2 text-gray-800 font-semibold">永久免费VPN</h2>
-        <a
-          href="https://github.com/wangwenzhiwwz/file/blob/master/%E4%B8%8D%E8%89%AF%E6%9E%97%20VPN.apk?raw=true"
-          >
-          <p class="text-sm text-gray-600 mb-2">
-            不良林VPN
-          </p>
-          <button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-          >
-            下载
-          </button></a
-        >
-      </div>
-    </div>
-
-    <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
-      <div class="bg-white shadow-md rounded-lg p-4 h-full hover:shadow-lg">
-        <h2 class="mb-2 text-gray-800 font-semibold">LanDrop</h2>
-        <a
-          href="https://landrop.app/#downloads"
-          >
-          <p class="text-sm text-gray-600 mb-2">
-            使用本地网络进行传输
-          </p>
-          <button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-          >
-            下载
-          </button></a
-        >
-      </div>
-    </div>
-
-    <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
-      <div class="bg-white shadow-md rounded-lg p-4 h-full hover:shadow-lg">
-        <h2 class="mb-2 text-gray-800 font-semibold">Apkpure下载</h2>
-        <a
-          href="https://github.com/wangwenzhiwwz/file/blob/master/Apkpure_androidappsapk.co_1.apk?raw=true"
-          ><button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-          >
-            下载
-          </button></a
-        >
-      </div>
-    </div>
-
-    <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
-      <div class="bg-white shadow-md rounded-lg p-4 h-full hover:shadow-lg">
-        <h2 class="mb-2 text-gray-800 font-semibold">VectorMagic1.15完美版</h2>
-        <a
-          href="https://github.com/wangwenzhiwwz/file/blob/master/VectorMagic1.15%E5%AE%8C%E7%BE%8E%E7%89%88.exe?raw=true"
-          ><button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-          >
-            下载
-          </button></a
-        >
-      </div>
-    </div>
-
-    <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
-      <div class="bg-white shadow-md rounded-lg p-4 h-full hover:shadow-lg">
-        <h2 class="mb-2 text-gray-800 font-semibold">
-          Shadowsocks windows客户端
-        </h2>
-        <a
-          href="https://github.com/wangwenzhiwwz/file/blob/master/pgfastss.zip?raw=true"
-          ><button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-          >
-            下载
-          </button></a
-        >
-      </div>
-    </div>
-
-    <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
-      <div class="bg-white shadow-md rounded-lg p-4 h-full hover:shadow-lg">
-        <h2 class="mb-2 text-gray-800 font-semibold">hosts</h2>
-        <p class="text-sm text-gray-600 mb-2">
-          位于"C:\Windows\System32\drivers\etc"
-        </p>
-        <a
-          href="https://github.com/wangwenzhiwwz/file/blob/master/hosts.zip?raw=true"
-          ><button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-          >
-            下载
-          </button></a>
-      </div>
-    </div>
-
-    <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
-      <div class="bg-white shadow-md rounded-lg p-4 h-full hover:shadow-lg">
-        <h2 class="mb-2 text-gray-800 font-semibold">wwz app</h2>
-        <a
-          href="https://github.com/wangwenzhiwwz/file/blob/master/wwz_1.1.apk"
-          ><button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-          >
-            下载
-          </button></a
-        >
-      </div>
-    </div>
-
-    <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
-      <div class="bg-white shadow-md rounded-lg p-4 h-full hover:shadow-lg">
-        <h2 class="mb-2 text-gray-800 font-semibold">Camera FV-5 3.32</h2>
-        <a
-          href="https://github.com/wangwenzhiwwz/file/blob/master/Camera%20FV-.apk?raw=true"
-          ><button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-          >
-            下载
-          </button></a
-        >
-      </div>
-    </div>
-  </div>
-</main>
-  </body>
+</body>
 </html>
